@@ -1,0 +1,9 @@
+*.class
+*.iml
+*.tmp
+
+out
+target
+build
+.idea
+.gradle
