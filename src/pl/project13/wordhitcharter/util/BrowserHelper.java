@@ -1,4 +1,4 @@
-package pl.project13.wordhitcharter;
+package pl.project13.wordhitcharter.util;
 
 import java.awt.*;
 import java.io.IOException;

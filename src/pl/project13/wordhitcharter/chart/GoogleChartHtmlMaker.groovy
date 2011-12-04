@@ -1,6 +1,6 @@
-package pl.project13.wordhitcharter
+package pl.project13.wordhitcharter.chart
 
-class GoogleLineChartHtmlMaker {
+abstract class GoogleChartHtmlMaker {
 
   private static final String STRING = 'string'
   private static final String NUMBER = 'number'
@@ -18,6 +18,8 @@ class GoogleLineChartHtmlMaker {
 
     tmp
   }
+
+  abstract def getVisualisationClassName();
 
   String getPage() {
     """
@@ -52,7 +54,7 @@ class GoogleLineChartHtmlMaker {
                       };
 
         // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        var chart = new ${getVisualisationClassName()}(document.getElementById('chart_div'));
         chart.draw(data, options);
       }
       </script>
@@ -82,7 +84,7 @@ class GoogleLineChartHtmlMaker {
       def column = columns[columnIndex]
       def escapedValue = column.type == STRING ? "'$value'" : value;
 
-      def item = [colNum: columnIndex, value: escapedValue]
+      def item = [colNum: columnIndex, colName: column.name, value: escapedValue]
       rows.add(item)
     } else {
       throw new RuntimeException("Unable to find such column name ('$columnName') to map to...")
@@ -90,14 +92,18 @@ class GoogleLineChartHtmlMaker {
   }
 
   private def addRowsJs() {
-    def js = "  data.addRows(${rowsCount()});\n"
+    def rowsCount = rows.size()
 
-    rowsCount().times { rowNumber ->
-      def row = row(rowNumber)
+    def js = "  data.addRows($rowsCount);\n"
 
-      js += "  data.setValue($rowNumber, $row.colNum, $row.value);\n"
+    def groupedByColumn = rows.groupBy {row -> row.colNum}
+
+    groupedByColumn.each {columnNumber, rows ->
+      rows.eachWithIndex { item, index ->
+        js += "  data.setValue($index, $columnNumber, $item.value); /*$item.colName*/\n"
+      }
     }
-
+    
     js
   }
 
@@ -108,16 +114,6 @@ class GoogleLineChartHtmlMaker {
     }
 
     js
-  }
-
-  private
-  def row(rowNumber) {
-    rows[rowNumber]
-  }
-
-  private
-  def rowsCount() {
-    rows.size()
   }
 
 }
