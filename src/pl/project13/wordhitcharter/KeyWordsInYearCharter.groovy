@@ -39,22 +39,23 @@ class KeyWordsInYearCharter {
       }
     }
 
+    // todo remove me! this is only demo stuff
     def y = 2000
     def rnd = new Random()
-    hitsPerYear[y++] = rnd.nextInt(1500)
-    hitsPerYear[y++] = rnd.nextInt(1500)
-    hitsPerYear[y++] = rnd.nextInt(1500)
-    hitsPerYear[y++] = rnd.nextInt(1500)
-    hitsPerYear[y++] = rnd.nextInt(1500)
-    hitsPerYear[y++] = rnd.nextInt(1500)
+    20.times {
+      hitsPerYear[y++] = rnd.nextInt(1500)
+    }
+    // todo remove me! this is only demo stuff
 
     this
   }
 
   public KeyWordsInYearCharter createLineChart() {
+    chartMaker.addStringColumn(YEAR);
     chartMaker.addNumberColumn(COUNT);
 
     hitsPerYear.each { year, articleCount ->
+      chartMaker.addRow(YEAR, year)
       chartMaker.addRow(COUNT, articleCount)
     }
 
