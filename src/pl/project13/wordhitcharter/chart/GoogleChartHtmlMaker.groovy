@@ -13,7 +13,7 @@ abstract class GoogleChartHtmlMaker {
   def rows = []
 
   File printPageToTempFile() {
-    def tmp = File.createTempFile("chartmaker", null)
+    def tmp = File.createTempFile("chartmaker", ".html")
     tmp.text = getPage()
 
     tmp
