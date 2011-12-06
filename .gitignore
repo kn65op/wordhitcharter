@@ -2,6 +2,8 @@
 *.iml
 *.tmp
 
+pdfs
+
 out
 target
 build
