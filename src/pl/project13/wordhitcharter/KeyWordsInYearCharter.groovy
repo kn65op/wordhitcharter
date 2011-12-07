@@ -55,7 +55,9 @@ class KeyWordsInYearCharter {
 
   KeyWordsInYearCharter openInBrowser() throws IOException {
     if (chartFile != null) {
-      BrowserHelper.openLineChartInBrowser("file:///$chartFile.absolutePath")
+      String path = "file:///$chartFile.absolutePath"
+      path = path.replaceAll("\\\\", "/")
+      BrowserHelper.openLineChartInBrowser(path)
     }
 
     this

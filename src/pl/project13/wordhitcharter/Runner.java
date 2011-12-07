@@ -12,8 +12,8 @@ import static com.google.common.collect.Lists.newArrayList;
 
 public class Runner {
 
-  private static final String SEARCH_PHRASE = "DNA";
-  private static final String PDF_FOLDER = "/home/ktoso/coding/wordhitcharter/pdfs";
+  private static final String SEARCH_PHRASE = "cryptography";
+  private static final String PDF_FOLDER = "C:\\Download\\arty2";
 
   KeyWordsInYearCharter wordHitCharter = new KeyWordsInYearCharter();
   ByYearCharter byYearCharter = new ByYearCharter();
@@ -27,11 +27,11 @@ public class Runner {
 
     System.out.println("FOUND " + allPdfs.size() + " PDF FILES...");
 
-//    System.out.println("Checking how many contain '" + SEARCH_PHRASE + "'");
-//    wordHitCharter.searchForPhrase(SEARCH_PHRASE)
-//                  .inGivenPdfs(allPdfs)
-//                  .createLineChart()
-//                  .openInBrowser();
+    System.out.println("Checking how many contain '" + SEARCH_PHRASE + "'");
+    wordHitCharter.searchForPhrase(SEARCH_PHRASE)
+                  .inGivenPdfs(allPdfs)
+                  .createLineChart()
+                  .openInBrowser();
 
     System.out.println("Graphing articles in years...");
     byYearCharter.inGivenPdfs(allPdfs)

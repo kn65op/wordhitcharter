@@ -9,3 +9,12 @@ target
 build
 .idea
 .gradle
+/nbproject/private/
+/dist/
+google-collect-1.0
+pdf
+scos
+build.xml
+lib
+guava-10.0.1.jar
+nbproject
